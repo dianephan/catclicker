@@ -1,0 +1,23 @@
+<span th:text="${welcome}" />
+<h1> Click on the cat to give it food! </h1>
+<br> <img id="catpic" src="tetra.png" alt="cutest baby">
+<br> <span id="totalCounter" />
+
+<script>
+    var catpic = document.getElementById("catpic");
+    var total = document.getElementById("totalCounter");
+    catpic.onclick = function(e){
+        // alert("HELLO CAT");
+        fetch("/catclicker", {method:"POST"})
+            .then( response => response.text() )
+            .then( text => total.textContent = text )
+        ;
+    }
+    document.body.onload = function (e) {
+        fetch("/catclicker", {method:"GET"})
+            .then( response => response.text() )
+            .then( text => total.textContent = text )
+        ;
+    }
+</script>
+
